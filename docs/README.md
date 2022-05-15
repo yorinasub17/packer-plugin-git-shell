@@ -59,3 +59,4 @@ The Scaffolding plugin is intended as a starting point for creating Packer plugi
 ### Provisioners
 
 - [git-shell](/docs/provisioners/provisioner-git-shell.mdx) - The git-shell provisioner can be used to remotely fetch a provisioner script from git.
+- [git-shell-local](/docs/provisioners/provisioner-git-shell-local.mdx) - The git-shell-local provisioner can be used to remotely fetch a provisioner script from git.

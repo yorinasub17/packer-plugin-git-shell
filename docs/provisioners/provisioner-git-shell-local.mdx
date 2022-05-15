@@ -1,0 +1,74 @@
+---
+description: >
+  The git-shell-local provisioner can be used to remotely fetch a provisioner script from git.
+page_title: Git Shell (Local) - Provisioners
+nav_title: Git Shell (Local)
+---
+
+# Git Shell (Local)
+
+Type: `git-shell-local`
+
+<!--
+  Include a short description about the provisioner. This is a good place
+  to call out what the provisioner does, and any additional text that might
+  be helpful to a user. See https://www.packer.io/docs/provisioners/null
+-->
+
+The `git-shell-local` provisioner can be used to remotely fetch a provisioner script from git. Like the `shell-local`
+provisioner, the `git-shell-local` provisioner will run the shell scripts on the machine running Packer.
+
+
+<!-- Provisioner Configuration Fields -->
+
+### Required
+
+- `source` (string) - The git URL (e.g., https://github.com/yorinasub17/packer-git-shell-example.git) where the scripts
+  are located.
+- `ref` (string) - The [git ref](https://git-scm.com/book/en/v2/Git-Internals-Git-References) to checkout when sourcing
+  the scripts.
+- `script` (string) - The relative path in the git repo where the script to run is located.
+
+
+
+
+
+<!--
+  Optional Configuration Fields
+
+  Configuration options that are not required or have reasonable defaults
+  should be listed under the optionals section. Defaults values should be
+  noted in the description of the field
+-->
+
+### Optional
+
+- `args` (array of strings) - This is an array of arguments to pass to the script when it is executed.
+
+<!--
+  A basic example on the usage of the provisioner. Multiple examples
+  can be provided to highlight various configurations.
+
+-->
+### Example Usage
+
+
+```hcl
+source "null" "basic-example" {
+  communicator = "none"
+}
+
+build {
+  sources = ["sources.null.basic-example"]
+
+  provisioner "git-shell-local" {
+    source = "https://github.com/yorinasub17/packer-git-shell-example.git"
+    ref    = "v0.1.0"
+    script = "scripts/echo-to-stderr"
+    args = [
+      "hello",
+      "world",
+    ]
+  }
+}
+```
