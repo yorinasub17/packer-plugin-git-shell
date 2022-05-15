@@ -10,20 +10,14 @@ import (
 	"github.com/hashicorp/packer-plugin-sdk/packer"
 	"github.com/hashicorp/packer-plugin-sdk/template/config"
 	"github.com/hashicorp/packer-plugin-sdk/template/interpolate"
+
+	"github.com/yorinasub17/packer-plugin-git-shell/provisioner/common"
 )
 
 type Config struct {
-	// Source is the git URL (e.g., https://github.com/yorinasub17/packer-git-shell-example.git) where the scripts are
-	// located.
-	Source string `mapstructure:"source"`
-	// Ref is the git ref to checkout when sourcing the scripts.
-	Ref string `mapstructure:"ref"`
-	// Script is the relative path in the git repo where the script to run is located.
-	Script string `mapstructure:"script"`
-	// Args is the script args to pass when executing the script.
-	Args []string `mapstructure:"args"`
+	common.Config `mapstructure:",squash"`
 
-	ctx        interpolate.Context
+	ctx interpolate.Context
 }
 
 type Provisioner struct {
