@@ -40,14 +40,17 @@ builds:
       - darwin
     goarch:
       - amd64
-      - '386'
       - arm
       - arm64
     ignore:
       - goos: darwin
-        goarch: '386'
+        goarch: arm
       - goos: linux
         goarch: amd64
+      - goos: windows
+        goarch: arm
+      - goos: windows
+        goarch: arm64
     binary: '{{ .ProjectName }}_v{{ .Version }}_{{ .Env.API_VERSION }}_{{ .Os }}_{{ .Arch }}'
 archives:
   - format: zip
