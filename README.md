@@ -1,7 +1,7 @@
 # Git Shell Packer Plugin
 
 The `git-shell` plugin can be used with HashiCorp [Packer](https://www.packer.io/) to provision machines using shell
-scripts stored in git repositories. For the full list of available features for this plugin see [/docs].
+scripts stored in git repositories. For the full list of available features for this plugin see [docs](/docs).
 
 ## Installation
 
