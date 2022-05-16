@@ -10,12 +10,12 @@ packer {
 # Use docker to avoid the need to open SSH locally. Otherwise, the git-shell provisioner will fail since it needs to run
 # on the target machine.
 source "docker" "example" {
-    image = "alpine"
-    commit = true
+  image  = "ubuntu"
+  commit = true
 }
 
 build {
-  sources = ["sources.null.basic-example"]
+  sources = ["sources.docker.example"]
 
   provisioner "git-shell" {
     source = "https://github.com/yorinasub17/packer-git-shell-example.git"
@@ -24,12 +24,12 @@ build {
     script {
       path = "scripts/echo-to-stderr"
       args = [
-        "$(lsb_release -a)",
+        "Hello world",
       ]
     }
 
     script {
-      path = "scripts/echo-from-env"
+      path             = "scripts/echo-from-env"
       environment_vars = ["TEXT='こんにちは世界'"]
     }
   }
@@ -41,12 +41,12 @@ build {
     script {
       path = "scripts/echo-to-stderr"
       args = [
-        "$(lsb_release -a)",
+        "Hello world",
       ]
     }
 
     script {
-      path = "scripts/echo-from-env"
+      path             = "scripts/echo-from-env"
       environment_vars = ["TEXT='こんにちは世界'"]
     }
   }
