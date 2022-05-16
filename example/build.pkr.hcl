@@ -16,11 +16,22 @@ build {
 
   provisioner "git-shell" {
     source = "https://github.com/yorinasub17/packer-git-shell-example.git"
-    ref    = "v0.1.0"
-    script = "scripts/echo-to-stderr"
-    args = [
-      "hello",
-      "world",
-    ]
+    ref    = "main"
+
+    script {
+      path = "scripts/echo-to-stderr"
+      args = [
+        "hello",
+        "world",
+      ]
+    }
+
+    script {
+      path = "scripts/echo-to-stderr"
+      args = [
+        "こんにちは",
+        "世界",
+      ]
+    }
   }
 }

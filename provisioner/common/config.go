@@ -12,8 +12,22 @@ type Config struct {
 	Source string `mapstructure:"source"`
 	// Ref is the git ref to checkout when sourcing the scripts.
 	Ref string `mapstructure:"ref"`
-	// Script is the relative path in the git repo where the script to run is located.
-	Script string `mapstructure:"script"`
-	// Args is the script args to pass when executing the script.
-	Args []string `mapstructure:"args"`
+	// Scripts is a list of blocks that specify which scripts from the repo should be called, and with what args. The
+	// scripts will be called in the order in which the blocks are defined.
+	Scripts []Script `mapstructure:"script"`
+	// UsernameEnvVar is the name of the environment variable to lookup for the username to use when authing to the git
+	// repo. Defaults to GIT_USERNAME.
+	UsernameEnvVar string `mapstructure:"username_env_var"`
+	// PasswordEnvVar is the name of the environment variable to lookup for the password to use when authing to the git
+	// repo. If unset, defaults to GIT_PASSWORD.
+	PasswordEnvVar string `mapstructure:"password_env_var"`
+}
+
+func (cfg Config) GetGitOptions() GitOptions {
+	return GitOptions{
+		RepoURL:        cfg.Source,
+		Ref:            cfg.Ref,
+		UsernameEnvVar: cfg.UsernameEnvVar,
+		PasswordEnvVar: cfg.PasswordEnvVar,
+	}
 }

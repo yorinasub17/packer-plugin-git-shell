@@ -2,3 +2,4 @@ main
 dist/*
 packer-plugin-git-shell
 example/.packer.d/
+localbuild.pkr.hcl

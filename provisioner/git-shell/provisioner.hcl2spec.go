@@ -4,24 +4,26 @@ package git_shell
 
 import (
 	"github.com/hashicorp/hcl/v2/hcldec"
+	"github.com/yorinasub17/packer-plugin-git-shell/provisioner/common"
 	"github.com/zclconf/go-cty/cty"
 )
 
 // FlatConfig is an auto-generated flat version of Config.
 // Where the contents of a field with a `mapstructure:,squash` tag are bubbled up.
 type FlatConfig struct {
-	PackerBuildName     *string           `mapstructure:"packer_build_name" cty:"packer_build_name" hcl:"packer_build_name"`
-	PackerBuilderType   *string           `mapstructure:"packer_builder_type" cty:"packer_builder_type" hcl:"packer_builder_type"`
-	PackerCoreVersion   *string           `mapstructure:"packer_core_version" cty:"packer_core_version" hcl:"packer_core_version"`
-	PackerDebug         *bool             `mapstructure:"packer_debug" cty:"packer_debug" hcl:"packer_debug"`
-	PackerForce         *bool             `mapstructure:"packer_force" cty:"packer_force" hcl:"packer_force"`
-	PackerOnError       *string           `mapstructure:"packer_on_error" cty:"packer_on_error" hcl:"packer_on_error"`
-	PackerUserVars      map[string]string `mapstructure:"packer_user_variables" cty:"packer_user_variables" hcl:"packer_user_variables"`
-	PackerSensitiveVars []string          `mapstructure:"packer_sensitive_variables" cty:"packer_sensitive_variables" hcl:"packer_sensitive_variables"`
-	Source              *string           `mapstructure:"source" cty:"source" hcl:"source"`
-	Ref                 *string           `mapstructure:"ref" cty:"ref" hcl:"ref"`
-	Script              *string           `mapstructure:"script" cty:"script" hcl:"script"`
-	Args                []string          `mapstructure:"args" cty:"args" hcl:"args"`
+	PackerBuildName     *string             `mapstructure:"packer_build_name" cty:"packer_build_name" hcl:"packer_build_name"`
+	PackerBuilderType   *string             `mapstructure:"packer_builder_type" cty:"packer_builder_type" hcl:"packer_builder_type"`
+	PackerCoreVersion   *string             `mapstructure:"packer_core_version" cty:"packer_core_version" hcl:"packer_core_version"`
+	PackerDebug         *bool               `mapstructure:"packer_debug" cty:"packer_debug" hcl:"packer_debug"`
+	PackerForce         *bool               `mapstructure:"packer_force" cty:"packer_force" hcl:"packer_force"`
+	PackerOnError       *string             `mapstructure:"packer_on_error" cty:"packer_on_error" hcl:"packer_on_error"`
+	PackerUserVars      map[string]string   `mapstructure:"packer_user_variables" cty:"packer_user_variables" hcl:"packer_user_variables"`
+	PackerSensitiveVars []string            `mapstructure:"packer_sensitive_variables" cty:"packer_sensitive_variables" hcl:"packer_sensitive_variables"`
+	Source              *string             `mapstructure:"source" cty:"source" hcl:"source"`
+	Ref                 *string             `mapstructure:"ref" cty:"ref" hcl:"ref"`
+	Scripts             []common.FlatScript `mapstructure:"script" cty:"script" hcl:"script"`
+	UsernameEnvVar      *string             `mapstructure:"username_env_var" cty:"username_env_var" hcl:"username_env_var"`
+	PasswordEnvVar      *string             `mapstructure:"password_env_var" cty:"password_env_var" hcl:"password_env_var"`
 }
 
 // FlatMapstructure returns a new FlatConfig.
@@ -46,8 +48,9 @@ func (*FlatConfig) HCL2Spec() map[string]hcldec.Spec {
 		"packer_sensitive_variables": &hcldec.AttrSpec{Name: "packer_sensitive_variables", Type: cty.List(cty.String), Required: false},
 		"source":                     &hcldec.AttrSpec{Name: "source", Type: cty.String, Required: false},
 		"ref":                        &hcldec.AttrSpec{Name: "ref", Type: cty.String, Required: false},
-		"script":                     &hcldec.AttrSpec{Name: "script", Type: cty.String, Required: false},
-		"args":                       &hcldec.AttrSpec{Name: "args", Type: cty.List(cty.String), Required: false},
+		"script":                     &hcldec.BlockListSpec{TypeName: "script", Nested: hcldec.ObjectSpec((*common.FlatScript)(nil).HCL2Spec())},
+		"username_env_var":           &hcldec.AttrSpec{Name: "username_env_var", Type: cty.String, Required: false},
+		"password_env_var":           &hcldec.AttrSpec{Name: "password_env_var", Type: cty.String, Required: false},
 	}
 	return s
 }

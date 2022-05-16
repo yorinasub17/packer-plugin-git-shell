@@ -4,7 +4,6 @@ package git_shell_local
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/hashicorp/hcl/v2/hcldec"
 	"github.com/hashicorp/packer-plugin-sdk/packer"
@@ -44,11 +43,5 @@ func (p *Provisioner) Prepare(raws ...interface{}) error {
 }
 
 func (p *Provisioner) Provision(_ context.Context, ui packer.Ui, _ packer.Communicator, generatedData map[string]interface{}) error {
-	ui.Say(
-		fmt.Sprintf(
-			"local provisioner args: %s//%s?ref=%s %v",
-			p.config.Source, p.config.Script, p.config.Ref, p.config.Args,
-		),
-	)
 	return nil
 }
