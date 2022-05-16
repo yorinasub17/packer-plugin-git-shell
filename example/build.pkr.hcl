@@ -7,8 +7,11 @@ packer {
   }
 }
 
-source "null" "basic-example" {
-  communicator = "none"
+# Use docker to avoid the need to open SSH locally. Otherwise, the git-shell provisioner will fail since it needs to run
+# on the target machine.
+source "docker" "example" {
+    image = "alpine"
+    commit = true
 }
 
 build {
