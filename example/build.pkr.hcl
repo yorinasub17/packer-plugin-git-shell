@@ -21,17 +21,30 @@ build {
     script {
       path = "scripts/echo-to-stderr"
       args = [
-        "hello",
-        "world",
+        "$(lsb_release -a)",
       ]
     }
 
     script {
+      path = "scripts/echo-from-env"
+      environment_vars = ["TEXT='こんにちは世界'"]
+    }
+  }
+
+  provisioner "git-shell-local" {
+    source = "https://github.com/yorinasub17/packer-git-shell-example.git"
+    ref    = "main"
+
+    script {
       path = "scripts/echo-to-stderr"
       args = [
-        "こんにちは",
-        "世界",
+        "$(lsb_release -a)",
       ]
+    }
+
+    script {
+      path = "scripts/echo-from-env"
+      environment_vars = ["TEXT='こんにちは世界'"]
     }
   }
 }

@@ -19,8 +19,8 @@ type FlatConfig struct {
 	PackerOnError       *string             `mapstructure:"packer_on_error" cty:"packer_on_error" hcl:"packer_on_error"`
 	PackerUserVars      map[string]string   `mapstructure:"packer_user_variables" cty:"packer_user_variables" hcl:"packer_user_variables"`
 	PackerSensitiveVars []string            `mapstructure:"packer_sensitive_variables" cty:"packer_sensitive_variables" hcl:"packer_sensitive_variables"`
-	Source              *string             `mapstructure:"source" cty:"source" hcl:"source"`
-	Ref                 *string             `mapstructure:"ref" cty:"ref" hcl:"ref"`
+	Source              *string             `mapstructure:"source" required:"true" cty:"source" hcl:"source"`
+	Ref                 *string             `mapstructure:"ref" required:"true" cty:"ref" hcl:"ref"`
 	Scripts             []common.FlatScript `mapstructure:"script" cty:"script" hcl:"script"`
 	UsernameEnvVar      *string             `mapstructure:"username_env_var" cty:"username_env_var" hcl:"username_env_var"`
 	PasswordEnvVar      *string             `mapstructure:"password_env_var" cty:"password_env_var" hcl:"password_env_var"`

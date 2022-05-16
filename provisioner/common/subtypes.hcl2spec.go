@@ -10,7 +10,7 @@ import (
 // FlatScript is an auto-generated flat version of Script.
 // Where the contents of a field with a `mapstructure:,squash` tag are bubbled up.
 type FlatScript struct {
-	Path            *string  `mapstructure:"path" cty:"path" hcl:"path"`
+	Path            *string  `mapstructure:"path" required:"true" cty:"path" hcl:"path"`
 	Args            []string `mapstructure:"args" cty:"args" hcl:"args"`
 	EnvironmentVars []string `mapstructure:"environment_vars" cty:"environment_vars" hcl:"environment_vars"`
 }

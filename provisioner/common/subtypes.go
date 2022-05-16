@@ -4,7 +4,7 @@ package common
 
 type Script struct {
 	// Path is the relative path in the git repo where the script to run is located.
-	Path string `mapstructure:"path"`
+	Path string `mapstructure:"path" required:"true"`
 	// Args is the script args to pass when executing the script.
 	Args []string `mapstructure:"args"`
 	// EnvironmentVars is the list of environment variables that should be set when the script is called. Each entry is

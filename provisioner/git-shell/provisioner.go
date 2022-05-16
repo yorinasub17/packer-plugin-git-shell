@@ -104,5 +104,4 @@ func runScript(
 
 	// Run the script through the shell provisioner now that we have the script locally and thus won't be any different.
 	return shellProvisioner.Provision(ctx, ui, comm, generatedData)
-
 }

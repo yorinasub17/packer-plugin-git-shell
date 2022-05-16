@@ -27,7 +27,29 @@ the `git-shell` provisioner will run the shell scripts on the machine built by P
   are located.
 - `ref` (string) - The [git ref](https://git-scm.com/book/en/v2/Git-Internals-Git-References) to checkout when sourcing
   the scripts.
-- `script` (string) - The relative path in the git repo where the script to run is located.
+- `script` (Script) - The scripts from the git repository that should be called.
+
+  HCL2 example:
+  ```hcl
+  provisioner "git-shell" {
+    script {
+      path = "scripts/echo-to-stderr"
+      args = [
+        "hello",
+        "world",
+      ]
+    }
+
+    script {
+      path = "scripts/echo-to-stderr"
+      args = [
+        "hello",
+        "$WORLD",
+      ]
+      environment_vars = ["WORLD=foo"]
+    }
+  }
+  ```
 
 
 
@@ -43,7 +65,10 @@ the `git-shell` provisioner will run the shell scripts on the machine built by P
 
 ### Optional
 
-- `args` (array of strings) - This is an array of arguments to pass to the script when it is executed.
+- `username_env_var` (string) - The name of the environment variable to lookup for the username to use when authing to
+  the git repo. Defaults to `GIT_USERNAME`.
+- `password_env_var` (string) - The name of the environment variable to lookup for the password to use when authing to
+  the git repo. If unset, defaults to `GIT_PASSWORD`.
 
 <!--
   A basic example on the usage of the provisioner. Multiple examples
@@ -64,11 +89,13 @@ build {
   provisioner "git-shell" {
     source = "https://github.com/yorinasub17/packer-git-shell-example.git"
     ref    = "v0.1.0"
-    script = "scripts/echo-to-stderr"
-    args = [
-      "hello",
-      "world",
-    ]
+    script {
+      path = "scripts/echo-to-stderr"
+      args = [
+        "hello",
+        "world",
+      ]
+    }
   }
 }
 ```
