@@ -15,10 +15,6 @@
 
 #### Using the `packer init` command
 
-Starting from version 1.7, Packer supports a new `packer init` command allowing
-automatic installation of Packer plugins. Read the
-[Packer documentation](https://www.packer.io/docs/commands/init) for more information.
-
 To install this plugin, copy and paste this code into your Packer configuration .
 Then, run [`packer init`](https://www.packer.io/docs/commands/init).
 
@@ -45,16 +41,14 @@ To install the plugin, please follow the Packer documentation on
 #### From Source
 
 If you prefer to build the plugin from its source code, clone the GitHub
-repository locally and run the command `go build` from the root
-directory. Upon successful compilation, a `packer-plugin-name` plugin
+repository locally and run the command `make` from the root
+directory. Upon successful compilation, a `packer-plugin-git-shell` plugin
 binary file can be found in the root directory.
 To install the compiled plugin, please follow the official Packer documentation
 on [installing a plugin](https://www.packer.io/docs/extending/plugins/#installing-plugins).
 
 
 ## Plugin Contents
-
-The Scaffolding plugin is intended as a starting point for creating Packer plugins, containing:
 
 ### Provisioners
 

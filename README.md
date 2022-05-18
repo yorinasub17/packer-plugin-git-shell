@@ -40,7 +40,7 @@ To install the plugin, please follow the Packer documentation on
 ### From Sources
 
 If you prefer to build the plugin from sources, clone the GitHub repository
-locally and run the command `go build` from the root
+locally and run the command `make` from the root
 directory. Upon successful compilation, a `packer-plugin-git-shell` plugin
 binary file can be found in the root directory.
 To install the compiled plugin, please follow the official Packer documentation
