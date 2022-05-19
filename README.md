@@ -58,6 +58,6 @@ documentation located in the [`docs/`](docs) directory.
 * If you think you've found a bug in the code or you have a question regarding the usage of this software, please reach
   out to us by [opening an issue](https://github.com/yorinasub17/packer-plugin-git-shell/issues) in this GitHub
   repository.
-* Contributions to this project are welcome: if you want to add a feature or a fix a bug, please do so by [opening a
+* Contributions to this project are welcome: if you want to add a feature or fix a bug, please do so by [opening a
   Pull Request](https://github.com/yorinasub17/packer-plugin-git-shell/pulls) in this GitHub repository. In case of
   feature contribution, we kindly ask you to open an issue to discuss it beforehand.
