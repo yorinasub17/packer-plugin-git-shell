@@ -61,3 +61,5 @@ documentation located in the [`docs/`](docs) directory.
 * Contributions to this project are welcome: if you want to add a feature or a fix a bug, please do so by [opening a
   Pull Request](https://github.com/yorinasub17/packer-plugin-git-shell/pulls) in this GitHub repository. In case of
   feature contribution, we kindly ask you to open an issue to discuss it beforehand.
+  
+  Nonce
