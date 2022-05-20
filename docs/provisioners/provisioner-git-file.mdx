@@ -1,0 +1,94 @@
+---
+description: >
+  The git-shell-file provisioner can be used to upload a file or folder from a git repository to machines built by Packer.
+page_title: Git File - Provisioners
+nav_title: Git File
+---
+
+# Git File
+
+Type: `git-shell-file`
+
+<!--
+  Include a short description about the provisioner. This is a good place
+  to call out what the provisioner does, and any additional text that might
+  be helpful to a user. See https://www.packer.io/docs/provisioners/null
+-->
+
+The `git-shell-file` provisioner can be used to upload a file or folder from a git repository to machines built by Packer.
+Like the `file` provisioner, the recommended usage of the provisioner is to use it to upload files, and then use the
+[shell](https://www.packer.io/docs/provisioners/shell) provisioner to move them to the proper place, set permissions,
+etc.
+
+
+<!-- Provisioner Configuration Fields -->
+
+### Required
+
+- `source` (string) - The git URL (e.g., https://github.com/yorinasub17/packer-git-shell-example.git) where the scripts
+  are located.
+- `ref` (string) - The [git ref](https://git-scm.com/book/en/v2/Git-Internals-Git-References) to checkout when sourcing
+  the scripts.
+- `file` (File) - The files from the git repository that should be uploaded to the machine. The `path` attribute is a
+  relative path (relative to the git repo root) to the file or folder that should be uploaded to the given destination.
+
+  HCL2 example:
+  ```hcl
+  provisioner "git-shell" {
+    file {
+      path        = "files/data"
+      destination = "/opt/myapp/data"
+    }
+
+    file {
+      path        = "files/configdir"
+      destination = "/opt/myapp/config"
+    }
+  }
+  ```
+
+
+
+
+
+<!--
+  Optional Configuration Fields
+
+  Configuration options that are not required or have reasonable defaults
+  should be listed under the optionals section. Defaults values should be
+  noted in the description of the field
+-->
+
+### Optional
+
+- `username_env_var` (string) - The name of the environment variable to lookup for the username to use when authing to
+  the git repo. Defaults to `GIT_USERNAME`.
+- `password_env_var` (string) - The name of the environment variable to lookup for the password to use when authing to
+  the git repo. If unset, defaults to `GIT_PASSWORD`.
+
+<!--
+  A basic example on the usage of the provisioner. Multiple examples
+  can be provided to highlight various configurations.
+
+-->
+### Example Usage
+
+
+```hcl
+source "null" "basic-example" {
+  communicator = "none"
+}
+
+build {
+  sources = ["sources.null.basic-example"]
+
+  provisioner "git-shell-file" {
+    source = "https://github.com/yorinasub17/packer-git-shell-example.git"
+    ref    = "v0.1.0"
+    file {
+      path        = "files/data"
+      destination = "/opt/myapp/data"
+    }
+  }
+}
+```

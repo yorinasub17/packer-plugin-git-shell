@@ -21,7 +21,8 @@ import (
 )
 
 type Config struct {
-	common.Config `mapstructure:",squash"`
+	common.GitConfig    `mapstructure:",squash"`
+	common.ScriptConfig `mapstructure:",squash"`
 
 	ctx interpolate.Context
 }
@@ -61,7 +62,7 @@ func (p *Provisioner) Provision(ctx context.Context, ui packer.Ui, comm packer.C
 		}
 	}()
 
-	gitOpts := p.config.Config.GetGitOptions()
+	gitOpts := p.config.GitConfig.GetGitOptions()
 	ui.Say(
 		fmt.Sprintf("Cloning repo %s at ref %s to dir %s", gitOpts.RepoURL, gitOpts.Ref, cloneDir),
 	)
@@ -75,7 +76,7 @@ func (p *Provisioner) Provision(ctx context.Context, ui packer.Ui, comm packer.C
 	// We use inline scripts to construct the script calls so that we can call each script with its args and environment
 	// variables.
 	scriptCalls := []string{}
-	for _, script := range p.config.Config.Scripts {
+	for _, script := range p.config.ScriptConfig.Scripts {
 		scriptCalls = append(
 			scriptCalls,
 			fmt.Sprintf(

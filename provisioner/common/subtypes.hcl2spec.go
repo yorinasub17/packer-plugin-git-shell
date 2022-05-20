@@ -7,6 +7,31 @@ import (
 	"github.com/zclconf/go-cty/cty"
 )
 
+// FlatFile is an auto-generated flat version of File.
+// Where the contents of a field with a `mapstructure:,squash` tag are bubbled up.
+type FlatFile struct {
+	Path        *string `mapstructure:"path" required:"true" cty:"path" hcl:"path"`
+	Destination *string `mapstructure:"destination" required:"true" cty:"destination" hcl:"destination"`
+}
+
+// FlatMapstructure returns a new FlatFile.
+// FlatFile is an auto-generated flat version of File.
+// Where the contents a fields with a `mapstructure:,squash` tag are bubbled up.
+func (*File) FlatMapstructure() interface{ HCL2Spec() map[string]hcldec.Spec } {
+	return new(FlatFile)
+}
+
+// HCL2Spec returns the hcl spec of a File.
+// This spec is used by HCL to read the fields of File.
+// The decoded values from this spec will then be applied to a FlatFile.
+func (*FlatFile) HCL2Spec() map[string]hcldec.Spec {
+	s := map[string]hcldec.Spec{
+		"path":        &hcldec.AttrSpec{Name: "path", Type: cty.String, Required: false},
+		"destination": &hcldec.AttrSpec{Name: "destination", Type: cty.String, Required: false},
+	}
+	return s
+}
+
 // FlatScript is an auto-generated flat version of Script.
 // Where the contents of a field with a `mapstructure:,squash` tag are bubbled up.
 type FlatScript struct {

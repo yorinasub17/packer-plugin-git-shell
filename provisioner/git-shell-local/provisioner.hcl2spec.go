@@ -21,9 +21,9 @@ type FlatConfig struct {
 	PackerSensitiveVars []string            `mapstructure:"packer_sensitive_variables" cty:"packer_sensitive_variables" hcl:"packer_sensitive_variables"`
 	Source              *string             `mapstructure:"source" required:"true" cty:"source" hcl:"source"`
 	Ref                 *string             `mapstructure:"ref" required:"true" cty:"ref" hcl:"ref"`
-	Scripts             []common.FlatScript `mapstructure:"script" cty:"script" hcl:"script"`
 	UsernameEnvVar      *string             `mapstructure:"username_env_var" cty:"username_env_var" hcl:"username_env_var"`
 	PasswordEnvVar      *string             `mapstructure:"password_env_var" cty:"password_env_var" hcl:"password_env_var"`
+	Scripts             []common.FlatScript `mapstructure:"script" cty:"script" hcl:"script"`
 }
 
 // FlatMapstructure returns a new FlatConfig.
@@ -48,9 +48,9 @@ func (*FlatConfig) HCL2Spec() map[string]hcldec.Spec {
 		"packer_sensitive_variables": &hcldec.AttrSpec{Name: "packer_sensitive_variables", Type: cty.List(cty.String), Required: false},
 		"source":                     &hcldec.AttrSpec{Name: "source", Type: cty.String, Required: false},
 		"ref":                        &hcldec.AttrSpec{Name: "ref", Type: cty.String, Required: false},
-		"script":                     &hcldec.BlockListSpec{TypeName: "script", Nested: hcldec.ObjectSpec((*common.FlatScript)(nil).HCL2Spec())},
 		"username_env_var":           &hcldec.AttrSpec{Name: "username_env_var", Type: cty.String, Required: false},
 		"password_env_var":           &hcldec.AttrSpec{Name: "password_env_var", Type: cty.String, Required: false},
+		"script":                     &hcldec.BlockListSpec{TypeName: "script", Nested: hcldec.ObjectSpec((*common.FlatScript)(nil).HCL2Spec())},
 	}
 	return s
 }

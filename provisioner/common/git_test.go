@@ -41,7 +41,7 @@ func TestCloneAndCheckout(t *testing.T) {
 				Ref:     "main",
 			},
 			"scripts/echo-sha",
-			"17c911e08b4914885e933e235c9c0f78dd8f31b4",
+			"264e2a14f0b95aad11eea53263793f0a45c37c8e",
 			false,
 		},
 		{

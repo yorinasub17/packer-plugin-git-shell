@@ -1,6 +1,6 @@
 //go:generate packer-sdc mapstructure-to-hcl2 -type Config
 
-package git_shell
+package git_shell_file
 
 import (
 	"context"
@@ -8,21 +8,23 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/hashicorp/go-multierror"
 	"github.com/hashicorp/hcl/v2/hcldec"
 	"github.com/hashicorp/packer-plugin-sdk/packer"
 	"github.com/hashicorp/packer-plugin-sdk/template/config"
 	"github.com/hashicorp/packer-plugin-sdk/template/interpolate"
-	shell_provisioner "github.com/hashicorp/packer/provisioner/shell"
+	file_provisioner "github.com/hashicorp/packer/provisioner/file"
 
 	"github.com/yorinasub17/packer-plugin-git-shell/provisioner/common"
 )
 
 type Config struct {
-	common.GitConfig    `mapstructure:",squash"`
-	common.ScriptConfig `mapstructure:",squash"`
+	common.GitConfig `mapstructure:",squash"`
+
+	// Files is a list of blocks that specify which files from the repo should be uploaded, and to where. The
+	// files will be uploaded in the order in which the blocks are defined. At least one file block must be defined.
+	Files []common.File `mapstructure:"file"`
 
 	ctx interpolate.Context
 }
@@ -37,7 +39,7 @@ func (p *Provisioner) ConfigSpec() hcldec.ObjectSpec {
 
 func (p *Provisioner) Prepare(raws ...interface{}) error {
 	err := config.Decode(&p.config, &config.DecodeOpts{
-		PluginType:         "packer.provisioner.git-shell",
+		PluginType:         "packer.provisioner.git-shell-file",
 		Interpolate:        true,
 		InterpolateContext: &p.config.ctx,
 		InterpolateFilter: &interpolate.RenderFilter{
@@ -54,7 +56,7 @@ func (p *Provisioner) Provision(
 	ctx context.Context, ui packer.Ui, comm packer.Communicator, generatedData map[string]interface{},
 ) (returnErr error) {
 	// Clone repo to a temporary directory that is cleaned up later
-	cloneDir, err := ioutil.TempDir("", "packer-git-shell-*")
+	cloneDir, err := ioutil.TempDir("", "packer-git-shell-file-*")
 	if err != nil {
 		return err
 	}
@@ -72,37 +74,31 @@ func (p *Provisioner) Provision(
 		return err
 	}
 
-	// Call each script in a loop, running through the shell provisioner. This is less efficient than passing the shell
-	// provisioner all the scripts, but since the shell provisioner doesn't have a concept of script args, we have to
-	// cheat with the execute_command field, which apply to all scripts passed to the shell provisioner. As such, we
-	// need to switch the context for each script, requiring a separate provisioner call.
-	for _, script := range p.config.ScriptConfig.Scripts {
-		if err := runScript(ctx, ui, comm, generatedData, cloneDir, script); err != nil {
+	// Upload each file in a loop, running through the file provisioner. We do this because the file provisioner can
+	// only upload to a single destination, and it is not guaranteed all the files are going to the same place.
+	for _, file := range p.config.Files {
+		if err := uploadFile(ctx, ui, comm, generatedData, cloneDir, file); err != nil {
 			return err
 		}
 	}
 	return nil
 }
 
-func runScript(
+func uploadFile(
 	ctx context.Context, ui packer.Ui, comm packer.Communicator, generatedData map[string]interface{},
-	cloneDir string, script common.Script,
+	cloneDir string, file common.File,
 ) error {
 	// Since the config property of the provisioner is internal, we need to use the map[string]interface{}
 	// representation of the config so that we can use Prepare to get the config representation.
-	execCmd := fmt.Sprintf("chmod +x {{.Path}}; {{.Vars}} {{.Path}} %s",
-		strings.Join(script.Args, " "),
-	)
-	shellConfig := map[string]interface{}{
-		"script":           filepath.Join(cloneDir, script.Path),
-		"environment_vars": script.EnvironmentVars,
-		"execute_command":  execCmd,
+	fileConfig := map[string]interface{}{
+		"source":      filepath.Join(cloneDir, file.Path),
+		"destination": file.Destination,
 	}
-	shellProvisioner := &shell_provisioner.Provisioner{}
-	if err := shellProvisioner.Prepare(shellConfig); err != nil {
+	fileProvisioner := &file_provisioner.Provisioner{}
+	if err := fileProvisioner.Prepare(fileConfig); err != nil {
 		return err
 	}
 
-	// Run the script through the shell provisioner now that we have the script locally and thus won't be any different.
-	return shellProvisioner.Provision(ctx, ui, comm, generatedData)
+	// Run the file through the file provisioner now that we have the file locally and thus won't be any different.
+	return fileProvisioner.Provision(ctx, ui, comm, generatedData)
 }

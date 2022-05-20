@@ -50,4 +50,14 @@ build {
       environment_vars = ["TEXT='こんにちは世界'"]
     }
   }
+
+  provisioner "git-shell-file" {
+    source = "https://github.com/yorinasub17/packer-git-shell-example.git"
+    ref    = "main"
+
+    file {
+      path        = "files/hello_world"
+      destination = "/tmp/hello_world"
+    }
+  }
 }
