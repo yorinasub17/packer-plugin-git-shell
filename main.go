@@ -8,6 +8,7 @@ import (
 	"github.com/hashicorp/packer-plugin-sdk/version"
 
 	git_shell "github.com/yorinasub17/packer-plugin-git-shell/provisioner/git-shell"
+	git_shell_file "github.com/yorinasub17/packer-plugin-git-shell/provisioner/git-shell-file"
 	git_shell_local "github.com/yorinasub17/packer-plugin-git-shell/provisioner/git-shell-local"
 )
 
@@ -32,6 +33,7 @@ func main() {
 	pps := plugin.NewSet()
 	pps.RegisterProvisioner(plugin.DEFAULT_NAME, new(git_shell.Provisioner))
 	pps.RegisterProvisioner("local", new(git_shell_local.Provisioner))
+	pps.RegisterProvisioner("file", new(git_shell_file.Provisioner))
 	pps.SetVersion(PluginVersion)
 	err := pps.Run()
 	if err != nil {
