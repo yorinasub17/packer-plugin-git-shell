@@ -1,16 +1,16 @@
 module github.com/yorinasub17/packer-plugin-git-shell
 
-go 1.17
+go 1.18
 
 require (
 	github.com/go-git/go-billy/v5 v5.3.1
 	github.com/go-git/go-git/v5 v5.4.2
-	github.com/gruntwork-io/terratest v0.40.8
+	github.com/gruntwork-io/terratest v0.40.24
 	github.com/hashicorp/go-multierror v1.1.1
-	github.com/hashicorp/hcl/v2 v2.12.0
-	github.com/hashicorp/packer v1.8.0
-	github.com/hashicorp/packer-plugin-sdk v0.2.13
-	github.com/stretchr/testify v1.7.2-0.20220513111209-285adcc5ced0
+	github.com/hashicorp/hcl/v2 v2.14.1
+	github.com/hashicorp/packer v1.8.3
+	github.com/hashicorp/packer-plugin-sdk v0.3.2
+	github.com/stretchr/testify v1.8.1
 	github.com/zclconf/go-cty v1.10.0
 )
 
@@ -25,7 +25,7 @@ require (
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
 	github.com/armon/go-metrics v0.3.9 // indirect
-	github.com/aws/aws-sdk-go v1.41.14 // indirect
+	github.com/aws/aws-sdk-go v1.42.29 // indirect
 	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d // indirect
 	github.com/cenkalti/backoff/v3 v3.2.2 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
@@ -44,9 +44,9 @@ require (
 	github.com/hashicorp/consul/api v1.10.1 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
-	github.com/hashicorp/go-getter/gcs/v2 v2.0.0-20200604122502-a6995fa1edad // indirect
-	github.com/hashicorp/go-getter/s3/v2 v2.0.0-20200604122502-a6995fa1edad // indirect
-	github.com/hashicorp/go-getter/v2 v2.0.2 // indirect
+	github.com/hashicorp/go-getter/gcs/v2 v2.1.0 // indirect
+	github.com/hashicorp/go-getter/s3/v2 v2.1.0 // indirect
+	github.com/hashicorp/go-getter/v2 v2.1.0 // indirect
 	github.com/hashicorp/go-hclog v0.16.2 // indirect
 	github.com/hashicorp/go-immutable-radix v1.3.1 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.0 // indirect
@@ -84,15 +84,14 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/ryanuber/go-glob v1.0.0 // indirect
 	github.com/sergi/go-diff v1.1.0 // indirect
-	github.com/stretchr/objx v0.4.0 // indirect
 	github.com/ugorji/go/codec v1.2.6 // indirect
 	github.com/ulikunitz/xz v0.5.10 // indirect
 	github.com/xanzy/ssh-agent v0.3.0 // indirect
 	go.opencensus.io v0.23.0 // indirect
-	golang.org/x/crypto v0.0.0-20220427172511-eb4f295cb31f // indirect
-	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2 // indirect
+	golang.org/x/crypto v0.0.0-20220517005047-85d78b3ac167 // indirect
+	golang.org/x/net v0.0.0-20211216030914-fe4d6282115f // indirect
 	golang.org/x/oauth2 v0.0.0-20211005180243-6b3c2da341f1 // indirect
-	golang.org/x/sys v0.0.0-20220128215802-99c3d69c2c27 // indirect
+	golang.org/x/sys v0.0.0-20220517195934-5e4e11fc645e // indirect
 	golang.org/x/term v0.0.0-20210615171337-6886f2dfbf5b // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac // indirect
@@ -106,6 +105,3 @@ require (
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
-
-// Force particular version of yaml.v3
-replace gopkg.in/yaml.v3 => gopkg.in/yaml.v3 v3.0.1
