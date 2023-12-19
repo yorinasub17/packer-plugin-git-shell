@@ -1,5 +1,14 @@
 # Use docker to avoid the need to open SSH locally. Otherwise, the git-shell provisioner will fail since it needs to run
 # on the target machine.
+packer {
+  required_plugins {
+    docker = {
+      source  = "github.com/hashicorp/docker"
+      version = "~> 1"
+    }
+  }
+}
+
 source "docker" "example" {
     image = "alpine"
     commit = true
