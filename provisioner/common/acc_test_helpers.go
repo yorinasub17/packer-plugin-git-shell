@@ -30,6 +30,7 @@ func RunAccTest(
 		},
 		Template: testTemplate,
 		Type:     provisionerType,
+		Init:     true,
 		Check: func(buildCommand *exec.Cmd, logfile string) error {
 			if buildCommand.ProcessState != nil {
 				if buildCommand.ProcessState.ExitCode() != 0 {
